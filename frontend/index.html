@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LeadAI · Lead Generation Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<aside class="sidebar">
+    <h2 class="brand">Lead<span>AI</span></h2>
+    <nav>
+        <a href="#overview" class="active">Overview</a>
+        <a href="#discover">Find new leads</a>
+        <a href="#leads" data-p="">All leads</a>
+        <a href="#leads" data-p="High">Hot leads</a>
+    </nav>
+    <div class="model-card">
+        <p class="label">Scoring engine</p>
+        <strong id="modelName">Checking…</strong>
+        <small id="modelNote"></small>
+    </div>
+</aside>
+
+<main>
+    <header id="overview">
+        <div>
+            <h1>Lead dashboard</h1>
+            <p class="muted">Find businesses, score them with ML, and focus on the best opportunities.</p>
+        </div>
+        <div class="row-gap">
+            <button id="scoreBtn">Retrain &amp; score (ML)</button>
+            <button class="ghost" id="refreshBtn">Refresh</button>
+        </div>
+    </header>
+
+    <section class="stats">
+        <article class="card stat"><p>Total leads</p><h2 id="statTotal">—</h2></article>
+        <article class="card stat"><p>High priority</p><h2 id="statHigh">—</h2></article>
+        <article class="card stat"><p>Medium priority</p><h2 id="statMedium">—</h2></article>
+        <article class="card stat"><p>Average score</p><h2 id="statAvg">—</h2></article>
+    </section>
+
+    <section class="card">
+        <h3>Priority breakdown</h3>
+        <div class="dist" id="distBar"></div>
+    </section>
+
+    <section class="card" id="discover">
+        <h3>Find new leads</h3>
+        <p class="muted">Search businesses in a city on OpenStreetMap. New ones are saved and scored automatically.</p>
+        <form id="discoverForm" class="row-gap wrap">
+            <select name="industry" aria-label="Industry">
+                <option value="restaurant">Restaurant</option><option value="cafe">Cafe</option>
+                <option value="hotel">Hotel</option><option value="hospital">Hospital</option>
+                <option value="pharmacy">Pharmacy</option><option value="school">School</option>
+            </select>
+            <input name="location" placeholder="City, e.g. Surat" required aria-label="City">
+            <button type="submit">Search &amp; save</button>
+        </form>
+        <p class="muted" id="discoverMsg" role="status"></p>
+    </section>
+
+    <section class="card" id="leads">
+        <div class="head">
+            <h3>Leads</h3>
+            <div class="row-gap">
+                <button class="ghost" id="exportBtn">Export CSV</button>
+                <button id="addBtn">+ Add lead</button>
+            </div>
+        </div>
+
+        <div class="row-gap wrap toolbar">
+            <input id="fSearch" type="search" placeholder="Search name, industry, location, email" aria-label="Search">
+            <select id="fIndustry" aria-label="Industry filter"></select>
+            <select id="fStatus" aria-label="Status filter">
+                <option value="">All statuses</option><option value="new">New</option><option value="contacted">Contacted</option>
+                <option value="qualified">Qualified</option><option value="converted">Converted</option>
+            </select>
+            <select id="fSort" aria-label="Sort">
+                <option value="score">Highest score</option><option value="low">Lowest score</option>
+                <option value="name">Name A–Z</option><option value="new">Newest</option>
+            </select>
+            <button class="ghost" id="clearBtn">Clear</button>
+        </div>
+        <div class="chips">
+            <button class="chip on" data-p="">All</button><button class="chip" data-p="High">High</button>
+            <button class="chip" data-p="Medium">Medium</button><button class="chip" data-p="Low">Low</button>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Business</th><th>Industry</th><th>Score</th><th>Priority</th><th>Status</th><th></th></tr></thead>
+                <tbody id="rows"><tr><td colspan="6" class="empty">Loading leads…</td></tr></tbody>
+            </table>
+        </div>
+        <div class="head pager">
+            <span class="muted" id="count"></span>
+            <div class="row-gap"><button class="ghost sm" id="prev">Previous</button><button class="ghost sm" id="next">Next</button></div>
+        </div>
+    </section>
+</main>
+
+<dialog id="leadDialog">
+    <form id="leadForm">
+        <h3 id="dlgTitle">Add lead</h3>
+        <input name="business_name" placeholder="Business name *" required minlength="2" maxlength="255">
+        <input name="industry" placeholder="Industry (e.g. restaurant)">
+        <input name="location" placeholder="Location">
+        <input name="website" placeholder="Website">
+        <input name="email" type="email" placeholder="Email">
+        <input name="phone" placeholder="Phone">
+        <input name="description" placeholder="Description">
+        <label id="statusField" hidden>Status
+            <select name="status">
+                <option value="new">New</option><option value="contacted">Contacted</option>
+                <option value="qualified">Qualified</option><option value="converted">Converted</option>
+            </select>
+        </label>
+        <p class="error" id="dlgError" role="alert"></p>
+        <div class="row-gap end">
+            <button type="button" class="ghost" id="cancelBtn">Cancel</button>
+            <button type="submit">Save</button>
+        </div>
+    </form>
+</dialog>
+<div id="toasts" aria-live="polite"></div>
+<script src="script.js"></script>
+</body>
+</html>
