@@ -4,6 +4,27 @@ Find local businesses, clean their data, and rank them by how much they could be
 
 The system pulls businesses from OpenStreetMap, standardizes and de-duplicates them, stores them in SQLite, and assigns each an **opportunity score (0-100)** with a plain-language explanation. A dashboard lets you search, add, edit, and prioritize leads.
 
+Screenshots
+Dashboard
+
+<img width="1600" height="1011" alt="dashboard" src="https://github.com/user-attachments/assets/5ffacebd-77f7-4f66-8850-fe6983aae0b7" />
+
+
+Scored and prioritized leads
+
+
+<img width="1600" height="1060" alt="lead-table" src="https://github.com/user-attachments/assets/5094db20-693a-440c-b18e-8d015f672abd" />
+
+
+Editing a lead
+
+<img width="1600" height="1060" alt="edit-lead" src="https://github.com/user-attachments/assets/82da9a6c-ff8a-4fdf-9cba-6546c32246f4" />
+
+API documentation
+
+<img width="1600" height="1059" alt="api-docs" src="https://github.com/user-attachments/assets/fcf881db-6843-4061-b588-a2167ff78ce4" />
+
+
 ## Features
 
 - **Lead discovery**: search by industry and location (India) using the OpenStreetMap Nominatim API
